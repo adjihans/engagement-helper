@@ -37,10 +37,19 @@ export const engagementMessageOverTimeChartOptions = (messageCountList: MessageC
         title: {
             text: 'Chart Test'
         }, 
-        series,
+        series: series.filter(serie => serie?.data?.length > 1),
         xAxis: {
-            categories
+            categories,
           },
+        tooltip: {
+            useHTML: true,
+            formatter: function (this: Highcharts.TooltipFormatterContextObject) {
+                return `<div>
+                    <div>${this.series.name}</div>
+                    <div>${this.y} message(s) on ${this.x}</div>
+                </div>`
+            }
+        }
     }
 }
 
